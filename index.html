@@ -3,12 +3,19 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Voltaire" rel="stylesheet">
 </head>
 
 <body>
+    <div class="title">
+        TIC-TAC-TOE
+    </div>
+    <div class=info>
+        <h1>2017 - FreeCodeCamp project by <a href="https://codepen.io/ludem/" target="_tab">ludem</a></h1>
+    </div>
     <div class="selector">
-                <div class="symbol">X</div>
-                <div class="symbol">O</div>
+        <div class="symbol flex active">X</div>
+        <div class="symbol flex">O</div>
     </div>
     <div class="grid">
         <div class="cell"></div>
@@ -21,6 +28,7 @@
         <div class="cell"></div>
         <div class="cell"></div>
     </div>
+    <div class="result"></div>
 </body>
 <script src="tictactoe.js"></script>
 
