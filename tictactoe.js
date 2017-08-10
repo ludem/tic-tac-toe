@@ -1,5 +1,6 @@
 //global variables
 let gameStatus = "running";
+let turn = "player";
 let playerSymbol = "X";
 let computerSymbol = "O";
 
@@ -14,6 +15,11 @@ cells.forEach(x => x.addEventListener("click", playerTurn));
 
 //function to check game status
 const isGameRunning = () => gameStatus === "running";
+
+//function to simulate cpu thinking time
+const cpuThinkingTime = () => Math.random() * 1000;
+
+const isComputerTurn = () => turn === 'computer';
 
 //assign 'x' or 'o' according to player's choice
 function symbolChoice() {
@@ -30,16 +36,19 @@ function symbolChoice() {
 function playerTurn() {
   //if game is not running, reset the game and continue
   if (!isGameRunning()) resetGame();
+
+   if (isComputerTurn()) return;
   //check if the cell is empty
   if (this.textContent !== "") return;
   this.textContent = playerSymbol;
+  turn = 'computer';
   if (checkWin(Array.from(cells), playerSymbol)) {
     gameStatus = "Player wins";
     result.textContent = gameStatus;
     return;
   }
   //brief timeout before computer move
-  setTimeout(computerTurn, 200);
+  setTimeout(computerTurn, cpuThinkingTime());
 }
 
 function computerTurn() {
@@ -47,8 +56,12 @@ function computerTurn() {
   const freeCells = Array.from(cells).filter(x => !x.textContent);
 
   //check if there are still cells available
-  if (freeCells.length == 0) return;
-
+  if (freeCells.length == 0) {
+    //if there are no cells available, the game is draw
+    gameStatus = 'Draw';
+    result.textContent = gameStatus;
+    return;
+  }
   //chose a cell among the available
   const chosenCell = pickRandomCell(freeCells);
 
@@ -60,6 +73,7 @@ function computerTurn() {
     result.textContent = gameStatus;
     return;
   }
+  turn = 'player';
 }
 
 /*Computer only choose a random cell
@@ -100,6 +114,7 @@ function checkWin(arr, symbol) {
 //reset game
 function resetGame() {
   cells.forEach(x => (x.textContent = ""));
+  turn = 'player';
   gameStatus = "running";
   result.textContent = '';
 }
