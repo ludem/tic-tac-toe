@@ -10,8 +10,8 @@ const symbols = document.querySelectorAll(".symbol");
 const result = document.querySelector(".result");
 
 //add listeners
-symbols.forEach(x => x.addEventListener("click", symbolChoice));
-cells.forEach(x => x.addEventListener("click", playerTurn));
+Array.from(symbols).forEach(x => x.addEventListener("click", symbolChoice));
+Array.from(cells).forEach(x => x.addEventListener("click", playerTurn));
 
 //function to check game status
 const isGameRunning = () => gameStatus === "running";
@@ -27,7 +27,7 @@ function symbolChoice() {
   computerSymbol = playerSymbol === "X" ? "O" : "X";
 
   //change style
-  symbols.forEach(x => x.classList.remove("active"));
+  Array.from(symbols).forEach(x => x.classList.remove("active"));
   this.classList.add("active");
   resetGame();
 }
